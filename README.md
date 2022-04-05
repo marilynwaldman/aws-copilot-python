@@ -1,6 +1,8 @@
 
 # AWS Copilot Sample microservices demonstration
 
+#  note using Cloud9 - first run aws configure.  Enter your stuff and leave token blank.  It will ask for stuff again later.
+
 
 - [**Pre-requisites**](#pre-requisites)
 - [**Install AWS Copilot**](#install-aws-copilot)
@@ -90,27 +92,27 @@ The typical flow of the commands will be based on above architecture.
 ```shell
 git clone https://github.com/gaonkarr/aws-copilot-demo.git && \ 
 cd aws-copilot-demo &&                                        \
-copilot app init social-media-app
+copilot app init map2-app
 ```
 
-2. Create the **TEST** environment in Region of your choice. Following creates it in ap-southeast-2.
+2. Create the **TEST** environment in Region of your choice. Following creates it in us-west-2.
 
 ```shell
-copilot env init --name test --region ap-southeast-2 --default-config
+copilot env init --name test --region us-west-2 --default-config
 ```
 
 3. Create the **PROD** environment in Region of your choice. Following creates it in ap-northeast-1. Notice the --prod flag. This is helpful to identify production environments. It is also automatically considered production when the pipeline is create in step .
 
 ```shell
-copilot env init --name prod --region ap-northeast-1 --default-config --prod
+copilot env init --name prod --region us-west-1 --default-config --prod
 ```
 
-4. Create a Service for "**Users**"
+4. Create a Service for "**Hello World**"
 
 ```shell
-copilot svc init --name users                       \
+copilot svc init --name hello-world                \
 --svc-type "Load Balanced Web Service"              \
---dockerfile ./services/users/Dockerfile
+--dockerfile ./services/hello-world/Dockerfile
 ```
 
 5. Step 4 creates a manifest file for the service under folder 'copilot/users/manifest.yaml'. In the manifest file, can make any changes to the default configurations for the service. Open this file and add following code to the end. This will tell configure the test environment with 1 task while the prod environment will have 2 tasks. Saved the file before proceeding. 
@@ -126,7 +128,7 @@ environments:
 6. Deploy the "**Users**" service in **TEST** environment
 
 ```shell
-copilot svc deploy --name users --env test
+copilot svc deploy --name hello-world --env test
 ```
 
 7. Deploy the "**Users**" service in **PRODUCTION** environment
