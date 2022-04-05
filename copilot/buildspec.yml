@@ -80,10 +80,10 @@ phases:
           if [ -f "$ADDONSFILE" ]; then
             tmp=$(mktemp)
             timestamp=$(date +%s)
-            aws s3 cp "$ADDONSFILE" "s3://stackset-map2-app-infras-pipelinebuiltartifactbuc-z30mp0k2vpym/manual/$timestamp/$workload.addons.stack.yml";
-            jq --arg a "https://stackset-map2-app-infras-pipelinebuiltartifactbuc-z30mp0k2vpym.s3.us-west-1.amazonaws.com/manual/$timestamp/$workload.addons.stack.yml" '.Parameters.AddonsTemplateURL = $a' ./infrastructure/$workload-prod.params.json > "$tmp" && mv "$tmp" ./infrastructure/$workload-prod.params.json
-            aws s3 cp "$ADDONSFILE" "s3://stackset-map2-app-infras-pipelinebuiltartifactbuc-1ur4zgjx3ppmt/manual/$timestamp/$workload.addons.stack.yml";
-            jq --arg a "https://stackset-map2-app-infras-pipelinebuiltartifactbuc-1ur4zgjx3ppmt.s3.us-west-2.amazonaws.com/manual/$timestamp/$workload.addons.stack.yml" '.Parameters.AddonsTemplateURL = $a' ./infrastructure/$workload-test.params.json > "$tmp" && mv "$tmp" ./infrastructure/$workload-test.params.json
+            aws s3 cp "$ADDONSFILE" "s3://stackset-map2-app-infras-pipelinebuiltartifactbuc-1hg29ut6flipn/manual/$timestamp/$workload.addons.stack.yml";
+            jq --arg a "https://stackset-map2-app-infras-pipelinebuiltartifactbuc-1hg29ut6flipn.s3.us-west-1.amazonaws.com/manual/$timestamp/$workload.addons.stack.yml" '.Parameters.AddonsTemplateURL = $a' ./infrastructure/$workload-prod.params.json > "$tmp" && mv "$tmp" ./infrastructure/$workload-prod.params.json
+            aws s3 cp "$ADDONSFILE" "s3://stackset-map2-app-infras-pipelinebuiltartifactbuc-16kok8j18h5e3/manual/$timestamp/$workload.addons.stack.yml";
+            jq --arg a "https://stackset-map2-app-infras-pipelinebuiltartifactbuc-16kok8j18h5e3.s3.us-west-2.amazonaws.com/manual/$timestamp/$workload.addons.stack.yml" '.Parameters.AddonsTemplateURL = $a' ./infrastructure/$workload-test.params.json > "$tmp" && mv "$tmp" ./infrastructure/$workload-test.params.json
           fi
         done;
       # If env file exists, upload the env file to each S3 bucket and write template URL to template config files.
@@ -103,14 +103,14 @@ phases:
               if [ $env = prod ]; then
                 tmp=$(mktemp)
                 checksum=$(cat $ENVFILE | sha256sum | head -c 64)
-                aws s3 cp "$ENVFILE" "s3://stackset-map2-app-infras-pipelinebuiltartifactbuc-z30mp0k2vpym/manual/$checksum/$env_file";
-                jq --arg a "arn:$PARTITION:s3:::stackset-map2-app-infras-pipelinebuiltartifactbuc-z30mp0k2vpym/manual/$checksum/$env_file" '.Parameters.EnvFileARN = $a' ./infrastructure/$workload-prod.params.json > "$tmp" && mv "$tmp" ./infrastructure/$workload-prod.params.json
+                aws s3 cp "$ENVFILE" "s3://stackset-map2-app-infras-pipelinebuiltartifactbuc-1hg29ut6flipn/manual/$checksum/$env_file";
+                jq --arg a "arn:$PARTITION:s3:::stackset-map2-app-infras-pipelinebuiltartifactbuc-1hg29ut6flipn/manual/$checksum/$env_file" '.Parameters.EnvFileARN = $a' ./infrastructure/$workload-prod.params.json > "$tmp" && mv "$tmp" ./infrastructure/$workload-prod.params.json
               fi
               if [ $env = test ]; then
                 tmp=$(mktemp)
                 checksum=$(cat $ENVFILE | sha256sum | head -c 64)
-                aws s3 cp "$ENVFILE" "s3://stackset-map2-app-infras-pipelinebuiltartifactbuc-1ur4zgjx3ppmt/manual/$checksum/$env_file";
-                jq --arg a "arn:$PARTITION:s3:::stackset-map2-app-infras-pipelinebuiltartifactbuc-1ur4zgjx3ppmt/manual/$checksum/$env_file" '.Parameters.EnvFileARN = $a' ./infrastructure/$workload-test.params.json > "$tmp" && mv "$tmp" ./infrastructure/$workload-test.params.json
+                aws s3 cp "$ENVFILE" "s3://stackset-map2-app-infras-pipelinebuiltartifactbuc-16kok8j18h5e3/manual/$checksum/$env_file";
+                jq --arg a "arn:$PARTITION:s3:::stackset-map2-app-infras-pipelinebuiltartifactbuc-16kok8j18h5e3/manual/$checksum/$env_file" '.Parameters.EnvFileARN = $a' ./infrastructure/$workload-test.params.json > "$tmp" && mv "$tmp" ./infrastructure/$workload-test.params.json
               fi
             fi
           done;
