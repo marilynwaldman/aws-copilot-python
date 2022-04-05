@@ -134,7 +134,7 @@ copilot svc deploy --name hello-world --env test
 7. Deploy the "**Users**" service in **PRODUCTION** environment
 
 ```shell
-copilot svc deploy --name users --env prod
+copilot svc deploy --name hello-world --env prod
 ```
 
 ***Optionally,***
