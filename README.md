@@ -92,7 +92,7 @@ The typical flow of the commands will be based on above architecture.
 ```shell
 git clone https://github.com/gaonkarr/aws-copilot-demo.git && \ 
 cd aws-copilot-demo &&                                        \
-copilot app init map2-app
+copilot app init map3-app
 ```
 
 2. Create the **TEST** environment in Region of your choice. Following creates it in us-west-2.
